@@ -402,6 +402,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         l.clear();
         fecha1.setDate(null);
         fecha2.setDate(null);
+        
     }//GEN-LAST:event_reinciarEnvioActionPerformed
 
     public static void extraTable() {
