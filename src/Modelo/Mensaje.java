@@ -10,8 +10,8 @@ package Modelo;
  * @author Auxiliar
  */
 public class Mensaje {
-    private String correo;
-    private String contrasena;
+    private String correo = "marianopaonessa@hotmail.it";
+    private String contrasena = "SAiDeCO8859$$";
     private String mensaje;
 
     public Mensaje() {

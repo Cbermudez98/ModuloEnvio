@@ -7,14 +7,8 @@ package Vista;
 
 import Controlador.ControladorAltiria;
 import Modelo.Mensaje;
-import java.awt.Color;
 import java.awt.Cursor;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
-import javax.swing.border.Border;
 
 /**
  *
@@ -156,7 +150,7 @@ public class VistaMensaje extends javax.swing.JFrame {
     private void AgregarMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarMensajeActionPerformed
         // TODO add your handling code here:
         if (!txtCorreoMensaje.getText().equals("") && !txtPasswordMensaje.getText().equals("") && !txtMensaje.getText().equals("")) {
-            ControladorAltiria.AgregerMensaje(txtCorreoMensaje.getText().trim(), txtPasswordMensaje.getText().trim(), txtMensaje.getText().trim());
+            ControladorAltiria.AgregerMensaje(txtMensaje.getText().trim());
             JOptionPane.showMessageDialog(null, "Actualizado con exito");
             this.dispose();
         }

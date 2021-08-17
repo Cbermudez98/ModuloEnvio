@@ -6,7 +6,6 @@
 package Controlador;
 
 import Modelo.Revision;
-import java.awt.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.lang.String;
-import java.util.Arrays;
 
 /**
  *

@@ -32,7 +32,7 @@ public class VistaCorreo extends javax.swing.JFrame {
         ImageIcon i = new ImageIcon(getClass().getResource("/Iconos/icons8-email-64.png"));
         Image i2 = i.getImage();
         this.setIconImage(i2);
-        
+
         /*
         try {
             UIManager.setLookAndFeel(new FlatArcIJTheme());
@@ -81,10 +81,10 @@ public class VistaCorreo extends javax.swing.JFrame {
         });
 
         asuntoCorreo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        asuntoCorreo.setBorder(null);
+        asuntoCorreo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         txtPassword.setFont(txtPassword.getFont().deriveFont(txtPassword.getFont().getSize()+7f));
-        txtPassword.setBorder(null);
+        txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         txtPassword.setCaretColor(new java.awt.Color(73, 181, 172));
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,7 +101,7 @@ public class VistaCorreo extends javax.swing.JFrame {
         jLabel4.setText("Asunto:");
 
         txtCorreo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txtCorreo.setBorder(null);
+        txtCorreo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -159,7 +159,7 @@ public class VistaCorreo extends javax.swing.JFrame {
 
     private void AgregarcorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarcorreoActionPerformed
         if (!txtCorreo.getText().equals("") && !txtPassword.getText().equals("") && !asuntoCorreo.getText().equals("") && !mensajeCorreo.getText().equals("")) {
-            ControladorCorreo.AgregarCorreo(txtCorreo.getText(), txtPassword.getText(),asuntoCorreo.getText(), mensajeCorreo.getText());
+            ControladorCorreo.AgregarCorreo(txtCorreo.getText(), txtPassword.getText(), asuntoCorreo.getText(), mensajeCorreo.getText());
             JOptionPane.showMessageDialog(null, "Actualizado con exito");
             this.dispose();
         } else {
@@ -171,11 +171,11 @@ public class VistaCorreo extends javax.swing.JFrame {
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
 
     }//GEN-LAST:event_txtPasswordActionPerformed
-
+    
     public static void iniciar() {
         ControladorCorreo c = new ControladorCorreo();
         Correo co = c.BuscarCoreo();
-
+        
         if (co != null) {
             txtCorreo.setText(co.getCorreo());
             txtPassword.setText(co.getPassword());

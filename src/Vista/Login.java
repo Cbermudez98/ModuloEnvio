@@ -5,8 +5,6 @@
  */
 package vista;
 
-import Controlador.ConexionBaseDeDatos;
-import Controlador.ControladorCorreo;
 import Controlador.ControladorUsuario;
 import Modelo.Usuario;
 import com.formdev.flatlaf.intellijthemes.FlatArcIJTheme;
@@ -25,7 +23,6 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.JOniException;
 
 /**
  *
@@ -42,8 +39,8 @@ public class Login extends javax.swing.JFrame {
         Shape forma = new RoundRectangle2D.Double(0, 0, this.getBounds().width, this.getBounds().height, 30, 30);
         AWTUtilities.setWindowShape(this, forma);
         close.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        this.getContentPane().setBackground(Color.decode("#212d3e"));
-
+        this.getContentPane().setBackground(Color.decode("#2679db"));
+        
         ImageIcon i = new ImageIcon(getClass().getResource("/Iconos/icons8-email-64.png"));
         Image i2 = i.getImage();
         this.setIconImage(i2);
@@ -94,7 +91,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setText("W.I.L - V 2.0");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(33, 45, 62));
+        setBackground(new java.awt.Color(22, 48, 190));
         setUndecorated(true);
 
         close.setForeground(new java.awt.Color(0, 0, 0));
@@ -130,7 +127,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        txtUsuario.setBackground(new java.awt.Color(33, 45, 62));
+        txtUsuario.setBackground(new java.awt.Color(38, 121, 219));
         txtUsuario.setFont(new java.awt.Font("Gotham Thin", 0, 18)); // NOI18N
         txtUsuario.setForeground(new java.awt.Color(73, 181, 172));
         txtUsuario.setBorder(null);
@@ -141,7 +138,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        txtpassword.setBackground(new java.awt.Color(33, 45, 62));
+        txtpassword.setBackground(new java.awt.Color(38, 121, 219));
         txtpassword.setFont(txtpassword.getFont().deriveFont(txtpassword.getFont().getSize()+7f));
         txtpassword.setForeground(new java.awt.Color(73, 181, 172));
         txtpassword.setBorder(null);

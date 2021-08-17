@@ -5,24 +5,18 @@
  */
 package Controlador;
 
-import java.awt.Color;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.sl.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFColor;
-
 /**
  *
  * @author Auxiliar
@@ -93,6 +87,7 @@ public class ControladorExcel {
             archivo.close();
             Desktop.getDesktop().open(archivoXLS);
         } catch (IOException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Archivo usado por otro proceso");
             throw e;
         }
         //}
@@ -163,6 +158,7 @@ public class ControladorExcel {
             archivo.close();
             Desktop.getDesktop().open(archivoXLS);
         } catch (IOException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Archivo usado por otro proceso " + e);
             throw e;
         }
         //}

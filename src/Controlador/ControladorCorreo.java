@@ -6,15 +6,14 @@
 package Controlador;
 
 import Modelo.Correo;
+import Modelo.Empresa;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +21,7 @@ import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.mail.BodyPart;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -30,9 +30,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.swing.JOptionPane;
-import vista.Login;
-import vista.VistaCorreo;
-import vista.menuPrincipal;
 
 /**
  *
@@ -120,7 +117,7 @@ public class ControladorCorreo {
         Properties props = new Properties();
         System.out.println("smtp: " + smtp + ", port: " + port + ", vehiculo: " + vehiculo + ", asunto: " + asunto + ", correo: " + correo + ", fechaRevision: " + fechaRevision);
         //System.out.println(c.getMensaje());
-        String informacion = "informacion del vehículo \n\r placa del vehículo: "+vehiculo+"\n\r fecha de la revision: "+fechaRevision;
+        String informacion = "informacion del vehículo \n\r placa del vehículo: " + vehiculo + "\n\r fecha de la revision: " + fechaRevision;
         //System.out.println(informacion);
         if (c != null) {
             props.setProperty("mail.smtp.host", smtp);
@@ -164,5 +161,86 @@ public class ControladorCorreo {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void enviarReporteAutotest(String fecha1, String fecha2) {
+        Empresa e = null;
+        e = ControladorEmpresa.buscarEmpresa();
+        Properties props = new Properties();
+        Correo c = BuscarCoreo();
+        String rutaXLS = "C:\\Prueba2\\ModuloEnvio_SMS " + fecha1 + " hasta " + fecha2 + ".xls";
+        File file = new File(rutaXLS);
+        if (file.exists()) {
+            System.out.println("Existe");
+            String header = "Reporte envio mensaje de texto " + e.getNombre() + " " + fecha1 + " hasta " + fecha2;
+            String mensaje = "Envio de reporte de mensaje correspondiente a " + fecha1 + " hasta " + fecha2 + "\r\n"
+                    + "Se adjunta archivo excel.\r\n\n"
+                    + e.getNombre() + "\r\n"
+                    + e.getCiudad() + " " + e.getDireccion() + "\r\n"
+                    + e.getEmail() + "\r\n"
+                    + e.getTelefono();
+
+            if (c.getCorreo().contains("@gmail")) {
+                props.setProperty("mail.smtp.host", "smtp.gmail.com");
+                props.setProperty("mail.smtp.starttls.enable", "true");
+                props.setProperty("mail.smtp.port", "587");
+                props.setProperty("mail.smtp.user", c.getCorreo());
+                props.setProperty("mail.smtp.user", c.getPassword());
+                props.setProperty("mail.smtp.auth", "true");
+                System.out.println("gmail");
+            } else if (c.getCorreo().contains("@hotmail")) {
+                props.setProperty("mail.smtp.host", "smtp.live.com");
+                props.setProperty("mail.smtp.starttls.enable", "true");
+                props.setProperty("mail.smtp.port", "25");
+                props.setProperty("mail.smtp.user", c.getCorreo());
+                props.setProperty("mail.smtp.user", c.getPassword());
+                props.setProperty("mail.smtp.auth", "true");
+                System.out.println("hotmail");
+            }
+
+            Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(c.getCorreo(), c.getPassword());
+                }
+            });
+
+            if (e != null) {
+                System.out.println("entro e");
+                try {
+
+                    BodyPart text2 = new MimeBodyPart();
+                    text2.setText(mensaje);
+
+                    BodyPart imagenAdjunta = new MimeBodyPart();
+                    imagenAdjunta.setDataHandler(new DataHandler(new FileDataSource("C:\\Reportes\\logocda.png")));
+                    imagenAdjunta.setFileName("logocda.png");
+                    BodyPart archivo = new MimeBodyPart();
+                    archivo.setDataHandler(new DataHandler(new FileDataSource(rutaXLS)));
+                    archivo.setFileName("ModuloEnvio_SMS " + fecha1 + " hasta " + fecha2 + ".xls");
+                    MimeMultipart m = new MimeMultipart();
+                    m.addBodyPart(text2);
+                    m.addBodyPart(imagenAdjunta);
+                    m.addBodyPart(archivo);
+
+                    MimeMessage message = new MimeMessage(session);
+                    message.setFrom(new InternetAddress(c.getCorreo()));
+                    message.addRecipient(Message.RecipientType.TO, new InternetAddress("marianopaonessa@hotmail.it"));
+                    message.addRecipient(Message.RecipientType.TO, new InternetAddress("autotestsas@gmail.com"));
+                    message.setSubject(header);
+                    message.setContent(m);
+                    Transport transport = session.getTransport();
+                    transport.connect(c.getCorreo(), c.getPassword());
+                    transport.sendMessage(message, message.getAllRecipients());
+                    transport.close();
+                    System.out.println("Se supone que envio");
+                } catch (MessagingException ex) {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
+            }
+
+        }
+
     }
 }

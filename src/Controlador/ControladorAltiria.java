@@ -6,8 +6,6 @@
 package Controlador;
 
 import Modelo.Mensaje;
-import Modelo.Correo;
-import java.awt.List;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,7 +18,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -52,42 +49,30 @@ public class ControladorAltiria {
             BufferedReader br = new BufferedReader(fi);
 
             while ((cad = br.readLine()) != null) {
-                if (contador == 0) {
-                    correo = cad;
-                    //System.out.println(cad);
-                }
 
-                if (contador == 1) {
-                    contrasena = cad;
-                    //System.out.println(cad);
-                }
+                mensaje += cad + "\n";
 
-                if (contador > 1) {
-                    mensaje += cad+"\n";
-                }
                 contador++;
             }
             //mensaje = co.getMensaje();
-            m = loadM(correo, contrasena, mensaje);
+            m = loadM(mensaje);
             return m;
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Error archivo Mensaje.ini no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch(IOException e){
+        } catch (IOException e) {
             Logger.getLogger(ControladorAltiria.class.getName()).log(Level.SEVERE, null, e);
         }
         return m;
     }
 
-    public static Mensaje loadM(String correo, String contrasena, String mensaje) {
+    public static Mensaje loadM(String mensaje) {
         Mensaje m = new Mensaje();
-        m.setCorreo(correo);
-        m.setContrasena(contrasena);
         m.setMensaje(mensaje.trim());
         //System.out.println(correo+", "+contrasena+", "+mensaje);
         return m;
     }
 
-    public static void AgregerMensaje(String correo, String contrasena, String mensaje) {
+    public static void AgregerMensaje(String mensaje) {
         try {
             String ruta = "C:\\Wil\\Mensaje.ini";
             String contenido = "";
@@ -99,8 +84,6 @@ public class ControladorAltiria {
 
             FileWriter fw = new FileWriter(f);
             PrintWriter pw = new PrintWriter(f);
-            pw.println(correo);
-            pw.println(contrasena);
             pw.println(mensaje);
             pw.close();
         } catch (Exception e) {
@@ -115,7 +98,7 @@ public class ControladorAltiria {
         //+" para renovar\n\r muchas gracias";
         ControladorAltiria ca = new ControladorAltiria();
         Mensaje m = ca.obtenerMensaje();
-        
+
         //String informacion = "informacion del vehículo \n\r placa del vehículo: "+vehiculo+"\n\r fecha de la revision: "+fechaRevision;
         //System.out.println(m.getMensaje());
         RequestConfig config = RequestConfig.custom()
@@ -141,8 +124,8 @@ public class ControladorAltiria {
         parametersList.add(new BasicNameValuePair("dest", "+57" + telefono));
         //parametersList.add(new BasicNameValuePair("dest", "+57" + telefono));
         parametersList.add(new BasicNameValuePair("msg", m.getMensaje()));
-        parametersList.add(new BasicNameValuePair("msg","Placa: "+placa.trim()));
-        parametersList.add(new BasicNameValuePair("msg","Fecha de revision: "+fecha.trim()));
+        parametersList.add(new BasicNameValuePair("msg", "Placa: " + placa.trim()));
+        parametersList.add(new BasicNameValuePair("msg", "Fecha de revision: " + fecha.trim()));
         //No es posible utilizar el remitente en America pero sı en España y Europa
         //Descomentar la lınea solo si se cuenta con un remitente autorizado por Altiria
         //parametersList.add(new BasicNameValuePair("senderId", "remitente"));

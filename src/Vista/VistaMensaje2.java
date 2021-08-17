@@ -6,8 +6,6 @@
 package vista;
 
 import Controlador.ControladorAltiria;
-import Controlador.ControladorCorreo;
-import Modelo.Correo;
 import Modelo.Mensaje;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -60,37 +58,19 @@ public class VistaMensaje2 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        txtCorreoMensaje = new javax.swing.JTextField();
         AgregarMensaje = new javax.swing.JButton();
-        txtPasswordMensaje = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtMensaje = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         longitudTxt = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel2.setText("Contraseña:");
-
-        txtCorreoMensaje.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txtCorreoMensaje.setBorder(null);
 
         AgregarMensaje.setText("Agregar");
         AgregarMensaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AgregarMensajeActionPerformed(evt);
-            }
-        });
-
-        txtPasswordMensaje.setFont(txtPasswordMensaje.getFont().deriveFont(txtPasswordMensaje.getFont().getSize()+7f));
-        txtPasswordMensaje.setBorder(null);
-        txtPasswordMensaje.setCaretColor(new java.awt.Color(73, 181, 172));
-        txtPasswordMensaje.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPasswordMensajeActionPerformed(evt);
             }
         });
 
@@ -109,8 +89,6 @@ public class VistaMensaje2 extends javax.swing.JFrame {
 
         longitudTxt.setText("               ");
 
-        jLabel1.setText("Correo:");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,16 +100,7 @@ public class VistaMensaje2 extends javax.swing.JFrame {
                         .addComponent(AgregarMensaje)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCorreoMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPasswordMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
                         .addGap(18, 18, 18))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,15 +114,7 @@ public class VistaMensaje2 extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtCorreoMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtPasswordMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -171,20 +132,16 @@ public class VistaMensaje2 extends javax.swing.JFrame {
 
     private void AgregarMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarMensajeActionPerformed
         // TODO add your handling code here:
-        if (!txtCorreoMensaje.getText().equals("") && !txtPasswordMensaje.getText().equals("") && !txtMensaje.getText().equals("")) {
+        if (!txtMensaje.getText().equals("")) {
             if (txtMensaje.getText().trim().length() > 160) {
                 JOptionPane.showMessageDialog(null, "Mensaje debe ser menor a 160 caracteres", "ERROR", JOptionPane.ERROR_MESSAGE);
             } else {
-                ControladorAltiria.AgregerMensaje(txtCorreoMensaje.getText().trim(), txtPasswordMensaje.getText().trim(), txtMensaje.getText().trim());
+                ControladorAltiria.AgregerMensaje(txtMensaje.getText().trim());
                 JOptionPane.showMessageDialog(null, "Actualizado con exito");
                 this.dispose();
             }
         }
     }//GEN-LAST:event_AgregarMensajeActionPerformed
-
-    private void txtPasswordMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordMensajeActionPerformed
-
-    }//GEN-LAST:event_txtPasswordMensajeActionPerformed
 
     private void txtMensajeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMensajeKeyTyped
         // TODO add your handling code here:
@@ -208,8 +165,6 @@ public class VistaMensaje2 extends javax.swing.JFrame {
         Mensaje m = null;
         m = ControladorAltiria.obtenerMensaje();
         if (m != null) {
-            txtCorreoMensaje.setText(m.getCorreo());
-            txtPasswordMensaje.setText(m.getContrasena());
             txtMensaje.setText(m.getMensaje());
             longitudTxt.setText(m.getMensaje().trim().length() + "");
             //System.out.println(m.getCorreo()+" , "+m.getContrasena());
@@ -253,14 +208,10 @@ public class VistaMensaje2 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarMensaje;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private static javax.swing.JLabel longitudTxt;
-    private static javax.swing.JTextField txtCorreoMensaje;
     private static javax.swing.JTextArea txtMensaje;
-    private static javax.swing.JPasswordField txtPasswordMensaje;
     // End of variables declaration//GEN-END:variables
 }

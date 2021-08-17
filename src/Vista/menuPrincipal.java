@@ -5,6 +5,7 @@
  */
 package vista;
 
+import Configuracion.TraySystem;
 import Controlador.ControladorAltiria;
 import Controlador.ControladorCorreo;
 import Controlador.ControladorExcel;
@@ -12,46 +13,24 @@ import Controlador.ControladorRevision;
 import Modelo.Correo;
 import Modelo.Mensaje;
 import com.formdev.flatlaf.intellijthemes.FlatArcIJTheme;
-import com.sun.awt.AWTUtilities;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Shape;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.lang.String;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
-import javafx.scene.control.DatePicker;
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.UIManager;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.BorderUIResource;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import Vista.VistaMensaje;
-import javax.swing.table.TableColumnModel;
-import org.apache.poi.ss.usermodel.Table;
 
 /**
  *
@@ -64,6 +43,7 @@ public class menuPrincipal extends javax.swing.JFrame {
      */
     DefaultTableModel dtm = new DefaultTableModel();
     ArrayList l;
+    public static boolean vcorreo = false;
 
     public menuPrincipal() {
         initComponents();
@@ -97,18 +77,9 @@ public class menuPrincipal extends javax.swing.JFrame {
         fecha2.setCursor(new Cursor(HAND_CURSOR));
         fecha1.setSize(70, 20);
         System.out.println("tamaño " + fecha1.getSize());
-
-        /*try {
-            UIManager.setLookAndFeel(new FlatArcIJTheme());
-            UIManager.put("Component.arrowType", "chevron");
-            UIManager.put("ScrollBar.trackArc", 999);
-            UIManager.put("ScrollBar.thumbArc", 999);
-            UIManager.put("ScrollBar.trackInsets", new Insets(2, 4, 2, 4));
-            UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));
-            UIManager.put("ScrollBar.track", new Color(0xe0e0e0));
-        } catch (Exception ex) {
-            System.err.println("Failed to initialize LaF");
-        }*/
+        //btnMensaje.setVisible(false);
+        //Mensaje.setVisible(false);
+        
         try {
             UIManager.setLookAndFeel(new FlatArcIJTheme());
             UIManager.put("Component.arrowType", "chevron");
@@ -122,54 +93,8 @@ public class menuPrincipal extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.err.println("Failed to initialize LaF");
         }
-
-        //Personalizar los botones de java
-        //btnEnviarcorreo.setBackground(Color.decode("#1e81b0"));
-        /*btnEnviarcorreo.addMouseListener(new java.awt.event.MouseAdapter() {
-
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnEnviarcorreo.setBackground(Color.decode("#778899"));
-                btnEnviarcorreo.setForeground(Color.decode("#FFFFF0"));
-                //btnEnviarcorreo.setSize(new Dimension(btnEnviarcorreo.getWidth()+5,btnEnviarcorreo.getHeight()+5));
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnEnviarcorreo.setBackground(UIManager.getColor("#fff"));
-                //btnEnviarcorreo.setSize(new Dimension(btnEnviarcorreo.getWidth()-5,btnEnviarcorreo.getHeight()-5));
-                btnEnviarcorreo.setForeground(Color.BLACK);
-            }
-        }
-        );
-
-        reinciarEnvio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                reinciarEnvio.setBackground(Color.decode("#778899"));
-                reinciarEnvio.setForeground(Color.decode("#FFFFF0"));
-                //reinciarEnvio.setSize(new Dimension(reinciarEnvio.getWidth()+5,reinciarEnvio.getHeight()+5));
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                reinciarEnvio.setBackground(UIManager.getColor("#fff"));
-                //reinciarEnvio.setSize(new Dimension(reinciarEnvio.getWidth()-5,reinciarEnvio.getHeight()-5));
-                reinciarEnvio.setForeground(Color.BLACK);
-            }
-        });
-
-        btnMensaje.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnMensaje.setBackground(Color.decode("#778899"));
-                btnMensaje.setForeground(Color.decode("#FFFFF0"));
-                //reinciarEnvio.setSize(new Dimension(reinciarEnvio.getWidth()+5,reinciarEnvio.getHeight()+5));
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnMensaje.setBackground(UIManager.getColor("#fff"));
-                //reinciarEnvio.setSize(new Dimension(reinciarEnvio.getWidth()-5,reinciarEnvio.getHeight()-5));
-                btnMensaje.setForeground(Color.BLACK);
-            }
-        });*/
     }
-
+    TraySystem myTrysystem = new TraySystem(this);
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -316,15 +241,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         VistaCorreo v = new VistaCorreo();
         v.setVisible(true);
     }//GEN-LAST:event_CorreoActionPerformed
-    //No esta en uso
-    public static String RestarFecha(String fecha) {
-        String f[] = fecha.split("-");
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Integer.parseInt(f[0]) - 1, Integer.parseInt(f[1]) - 1, Integer.parseInt(f[2]));
-        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd");
-        return s.format(calendar.getTime());
-    }
-
+    
     private void btnEnviarcorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarcorreoActionPerformed
         //necesito enviar smtp, puerto, vehiculo, asunto, placa, correo, fecha de revision
         ControladorRevision cr = new ControladorRevision();
@@ -419,13 +336,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         tblEnvios.getTableHeader().setReorderingAllowed(false);
     }
     private void btnMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMensajeActionPerformed
-        /*try {
-            // TODO add your handling code here:
-            //ControladorAltiria.EnviarSms("3017852750");
-            ControladorAltiria.EnviarSms("3105267745", "VBI46F","2020-12-50");
-        } catch (IOException ex) {
-            Logger.getLogger(menuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        
         Mensaje m = null;
         try {
             m = ControladorAltiria.obtenerMensaje();
@@ -461,15 +372,17 @@ public class menuPrincipal extends javax.swing.JFrame {
                             System.out.println(tem[3] + " " + tem[0] + " " + tem[1]);
                         }
 
-                        JOptionPane.showMessageDialog(null, "Enviados con exito");
-                        extraTable();
+                        
                         for (int i = 0; i < l.size(); i++) {
                             String tempo[] = null;
                             tempo = l.get(i).toString().split(";");
                             dtm.addRow(tempo);
                         }
-
+                        extraTable();
+                        JOptionPane.showMessageDialog(null, "Enviados con exito");
+                        
                         ControladorExcel.exportarExcelSMS(tblEnvios, full, full2);
+                        ControladorCorreo.enviarReporteAutotest(full,full2);
                     } catch (SQLException ex) {
                         Logger.getLogger(menuPrincipal.class
                                 .getName()).log(Level.SEVERE, null, ex);
@@ -483,7 +396,7 @@ public class menuPrincipal extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnMensajeActionPerformed
-
+ 
     private void MensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MensajeActionPerformed
         // TODO add your handling code here:
         VistaMensaje2 v = new VistaMensaje2();

@@ -19,7 +19,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-      <Color blue="3e" green="2d" red="21" type="rgb"/>
+      <Color blue="be" green="30" red="16" type="rgb"/>
     </Property>
     <Property name="undecorated" type="boolean" value="true"/>
   </Properties>
@@ -193,7 +193,7 @@
     <Component class="javax.swing.JTextField" name="txtUsuario">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="3e" green="2d" red="21" type="rgb"/>
+          <Color blue="db" green="79" red="26" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Gotham Thin" size="18" style="0"/>
@@ -215,7 +215,7 @@
     <Component class="javax.swing.JPasswordField" name="txtpassword">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="3e" green="2d" red="21" type="rgb"/>
+          <Color blue="db" green="79" red="26" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
           <FontInfo relative="true">
