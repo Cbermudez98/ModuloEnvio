@@ -172,7 +172,7 @@ public class ControladorCorreo {
         File file = new File(rutaXLS);
         if (file.exists()) {
             System.out.println("Existe");
-            String header = "Reporte envio mensaje de texto " + e.getNombre() + " " + fecha1 + " hasta " + fecha2;
+            String header = "Reporte envio mensaje de texto " + e.getNombre() + " " + e.getCiudad() + " " + fecha1 + " hasta " + fecha2;
             String mensaje = "Envio de reporte de mensaje correspondiente a " + fecha1 + " hasta " + fecha2 + "\r\n"
                     + "Se adjunta archivo excel.\r\n\n"
                     + e.getNombre() + "\r\n"
